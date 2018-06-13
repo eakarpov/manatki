@@ -11,13 +11,13 @@ declare global {
 
 function initStringOptions() {
   String.prototype.some = function() {
-    return Option.Some<number>(this);
+    return Option.Some<string>(this);
   }
 }
 
 function initNumberOptions() {
   Number.prototype.some = function() {
-    return Option.Some<string>(this);
+    return Option.Some<number>(this);
   }
 }
 

@@ -1,10 +1,14 @@
-import {Optionable} from "./Option";
+import {Optionable, Option} from "./Option";
 
-export interface None extends Optionable<any> {}
+export interface None extends Optionable<any>{}
 
-export const None = {
-    isEmpty: true,
-    getOrElse<V>(stopGap: V) {
-      return stopGap;
-    }
-} as None;
+export function None(): None {
+  this.prototype = Option.prototype;
+  this.isEmpty = true;
+  this.getOrElse = function<V>(stopGap: V) {
+    return stopGap;
+  };
+  return this;
+}
+
+
