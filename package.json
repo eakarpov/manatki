@@ -1,0 +1,36 @@
+{
+  "name": "lc",
+  "version": "0.0.0",
+  "description": "Lambda Calculus",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "scripts": {
+    "ts-build": "tsc",
+    "test": "mocha --require ts-node/register --ui mocha-typescript ./**/*.test.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/eakarpov/lc.git"
+  },
+  "keywords": [
+    "lambda",
+    "calculus",
+    "typescript",
+    "javascript",
+    "fp"
+  ],
+  "author": "George Carpow",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eakarpov/lc/issues"
+  },
+  "homepage": "https://github.com/eakarpov/lc#readme",
+  "devDependencies": {
+    "@types/mocha": "^5.2.2",
+    "@types/node": "^10.3.2",
+    "mocha": "^5.2.0",
+    "mocha-typescript": "^1.1.16",
+    "ts-node": "^6.1.1",
+    "typescript": "^2.9.1"
+  }
+}
