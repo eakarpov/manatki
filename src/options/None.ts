@@ -1,13 +1,10 @@
-import {IOption} from './IOption';
+import {Optionable} from "./Option";
 
-export interface None extends IOption {
-}
+export interface None extends Optionable<any> {}
 
-export function None<T>() {
-  return new class implements IOption {
-    isEmpty: true;
-    getOrElse(stopGap: any) {
+export const None = {
+    isEmpty: true,
+    getOrElse<V>(stopGap: V) {
       return stopGap;
     }
-  }
-}
+} as None;

@@ -1,11 +1,11 @@
 import * as assert from 'assert';
 import {Some} from '../../src/options/Some';
+import {suite, test} from "mocha-typescript";
 
-describe("Some", () => {
-  describe("#getOrElse()", () => {
-    it("shoud return 5", () => {
-      const a = Some<number>(5);
-      assert.equal(a.getOrElse(null), 5);
-    });
-  });
-});
+@suite class SomeTest {
+  // #getOrElse()
+  @test getOrElseShouldReturn5() {
+    const a = Some<number>(5);
+    assert.deepStrictEqual(a.getOrElse(null), 5);
+  }
+}

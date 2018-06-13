@@ -1,11 +1,11 @@
 import * as assert from 'assert';
 import {None} from '../../src/options/None';
+import {suite, test} from "mocha-typescript";
 
-describe("None", () => {
-  describe("#getOrElse()", () => {
-    it("shoud return nothing", () => {
-      const a = None();
-      assert.equal(a.getOrElse(5), 5);
-    });
-  });
-});
+@suite class Nonetest {
+  // #getOrElse
+  @test getOrElseShouldReturnNothing() {
+    const a = None;
+    assert.deepStrictEqual(a.getOrElse(5), 5);
+  }
+}

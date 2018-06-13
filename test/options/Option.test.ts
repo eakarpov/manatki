@@ -1,20 +1,22 @@
 import * as assert from 'assert';
 import {Option} from '../../src/options/Option';
-import {Some} from '../../src/options/Some';
+import '../../src/implicits';
+import {suite, test} from "mocha-typescript";
 import '../../src/implicits';
 
-describe("Option", () => {
-  describe("#getOrElse()", () => {
-    it("shoud return 5", () => {
-      // TODO: why this test fails?
-      const a = Some<number>(5);
-      const b = Option<number>(a);
-      assert.equal(a.getOrElse(5), 5);
-    });
+@suite class OptionTest {
+  @test getOrElseShouldReturn5() {
+    const b = Option.Some<number>(5);
+    assert.deepStrictEqual(b.getOrElse<number>(5), 5);
+  }
 
-    it("Prototyped number returns 5", () => {
-      const a = (2 as any).some();
-      assert.equal(a.getOrElse(null), 2);
-    });
-  });
-});
+  @test getOrElseShouldReturnNothing() {
+    const b = Option.None();
+    assert.deepStrictEqual(b.getOrElse<number>(5), 5);
+  }
+
+  @test getOrElsePrototypedNumberReturns5() {
+    const a = (2).some();
+    assert.deepStrictEqual(a.getOrElse<object>(null), 2);
+  }
+}

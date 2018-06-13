@@ -1,12 +1,28 @@
-import {IOption, None, Some} from "../../src";
+import {None, Some} from "../../src";
 
-export interface Option<T> extends IOption {}
+export interface Optionable<T> {
+  getOrElse<V>(stopGap: V): T|V;
+}
 
-export function Option<T>(value: Some<T>|None) {
-  return { // TODO: new class extends IOption throws an error. Why??
-    isEmpty: value.isEmpty,
-    getOrElse(stopGap: any): any {
-      return value.getOrElse(stopGap); 
-    }
-  };
+export interface Option<T> {
+  value: Some<T>|None;
+}
+
+export class Option<T> implements Option<T> {
+  static Some<T>(value: T) {
+    return new Option(Some<T>(value));
+  }
+  static None() {
+    return new Option(None);
+  }
+
+  value: Some<T>|None;
+
+  constructor(value: Some<T>|None) {
+    this.value = value;
+  }
+
+  getOrElse<V>(stopGap: V): T|V {
+    return this.value.getOrElse(stopGap);
+  }
 }
