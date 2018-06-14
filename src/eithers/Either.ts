@@ -20,8 +20,8 @@ export class Either<K, T> implements Validatable<K, T> {
 
   public isLeft: boolean;
   public isRight: boolean;
-  readonly _left: K;
-  readonly _right: T;
+  private readonly _left: K;
+  private readonly _right: T;
 
   constructor(left: K, right: T) {
     this._left = left;

@@ -1,5 +1,7 @@
 # lc
 
+[![Build Status](https://travis-ci.org/eakarpov/lc.svg?branch=master)](https://travis-ci.org/eakarpov/lc)
+
 Lambda Calculus for Typescript/Javascript
 
 Status: in development (v0.0.0)

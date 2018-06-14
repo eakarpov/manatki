@@ -19,6 +19,10 @@ export interface Optionable<T> extends Traversable<T> {
   value?: T;
 }
 
+/**
+ * @class Option[T]
+ * Optional value of T type
+ */
 export class Option<T> implements Optionable<T> {
   static Some<T>(value: T) {
     return new Option(value);

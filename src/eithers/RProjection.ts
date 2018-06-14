@@ -8,13 +8,13 @@ export class RProjection<K, T> implements Projection<T> {
     this.value = val;
   }
   getOrElse<P>(val: P): T|P {
-    return this.value.isRight ? this.value._right : val;
+    return this.value.getOrElse(val);
   }
   get(): T|never {
-    if (this.value.isRight) return this.value._right;
+    if (this.value.isRight) return this.getOrElse(void 0);
     throw new Error("No Such Element");
   }
   toOption(): Option<T> {
-    return this.value.isRight ? Some(this.value._right) : None;
+    return this.value.isRight ? Some(this.getOrElse(void 0)) : None;
   }
 }
