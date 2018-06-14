@@ -5,8 +5,9 @@
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "scripts": {
+    "prets-build": "rm -rf build",
     "ts-build": "tsc",
-    "test": "mocha --require ts-node/register --ui mocha-typescript ./**/*.test.ts"
+    "test": "npm run ts-build && mocha --require ts-node/register --ui mocha-typescript ./**/*.test.ts"
   },
   "repository": {
     "type": "git",

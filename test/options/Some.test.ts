@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import {Some} from '../../src/options/Some';
+import {Some} from '../../build/options/Some';
 import {suite, test} from "mocha-typescript";
 
 @suite class SomeTest {
@@ -7,5 +7,10 @@ import {suite, test} from "mocha-typescript";
   @test getOrElseShouldReturn5() {
     const a = Some<number>(5);
     assert.deepStrictEqual(a.getOrElse(null), 5);
+  }
+
+  @test getReturn5() {
+    const a = Some<number>(5);
+    assert.deepStrictEqual(a.get(), 5);
   }
 }

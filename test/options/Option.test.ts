@@ -1,6 +1,5 @@
 import * as assert from 'assert';
-import {Option} from '../../src/options/Option';
-import '../../src/implicits';
+import {Option} from '../../build/options/Option';
 import {suite, test} from "mocha-typescript";
 import '../../src/implicits';
 
