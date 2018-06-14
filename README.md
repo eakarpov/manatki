@@ -1,14 +1,14 @@
 # lc
 
-[![Build Status](https://travis-ci.org/eakarpov/lc.svg?branch=master)](https://travis-ci.org/eakarpov/lc)
+[![Build Status](https://travis-ci.org/eakarpov/manatki.svg?branch=master)](https://travis-ci.org/eakarpov/manatki)
 
-Lambda Calculus for Typescript/Javascript
+Dependency-free library for functional programming in Typescript/Javascript
 
 Status: in development (v0.0.0)
 
 ## Features
 
-1. Option
+1. Options
 
 ```typescript
 declare class Option<T> implements Optionable<T> {
@@ -28,6 +28,27 @@ declare class Option<T> implements Optionable<T> {
     flatten<K>(): Option<T | K>;
     combine<P>(that: Option<P>): Option<T | P>;
     match<P>(object: Matcher<Option<T>, P>): any;
+}
+```
+
+2. Either
+
+```typescript
+declare class Either<K, T> implements Validatable<K, T> {
+    static Left<T>(val: T): Either<T, any>;
+    static Right<T>(val: T): Either<any, T>;
+    isLeft: boolean;
+    isRight: boolean;
+    private readonly _left;
+    private readonly _right;
+    constructor(left: K, right: T);
+    left(): LProjection<K, T>;
+    right(): RProjection<K, T>;
+    getOrElse<P>(stopGap: P): T | P;
+    swap(): Either<T, K>;
+    joinLeft(): void;
+    joinRight(): void;
+    fold(): void;
 }
 ```
 
@@ -52,6 +73,7 @@ interface Optionable<T> extends Traversable<T> {
     value?: T;
 }
 ```
+
 
 ## License
 
