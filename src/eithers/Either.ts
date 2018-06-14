@@ -4,10 +4,13 @@ import {RProjection} from "./RProjection";
 export interface Validatable<K, T> {
   isLeft: boolean;
   isRight: boolean;
-  swap(): void;
+  swap(): Either<T, K>;
   getOrElse<P>(stopGap: P): T|P;
   left(): LProjection<K, T>;
   right(): RProjection<K, T>;
+  joinLeft(): void;
+  joinRight(): void;
+  fold(): void;
 }
 
 export class Either<K, T> implements Validatable<K, T> {
@@ -20,14 +23,14 @@ export class Either<K, T> implements Validatable<K, T> {
 
   public isLeft: boolean;
   public isRight: boolean;
-  private readonly _left: K;
-  private readonly _right: T;
+  private readonly _left?: K;
+  private readonly _right?: T;
 
-  constructor(left: K, right: T) {
+  constructor(left?: K, right?: T) {
     this._left = left;
     this._right = right;
-    if (this._left !== void 0) this.isLeft = true;
-    if (this._right !== void 0) this.isRight = true;
+    this.isLeft = left !== void 0;
+    this.isRight = right !== void 0;
   }
 
   public left(): LProjection<K, T> {
@@ -43,12 +46,12 @@ export class Either<K, T> implements Validatable<K, T> {
     return new Either(this._right, this._left);
   }
   joinLeft() {
-
+    throw new Error("not implemented");
   }
   joinRight() {
-
+    throw new Error("not implemented");
   }
   fold() {
-
+    throw new Error("not implemented");
   }
 }

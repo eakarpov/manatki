@@ -1,6 +1,6 @@
-import {Either} from './Either';
+import {Either, Validatable} from './Either';
 
-export interface Right<T> {}
+export interface Right<T> extends Validatable<any, T> {}
 
 class RightClass<T> extends Either<any, T> implements Right<T> {
   constructor(val: T) {
