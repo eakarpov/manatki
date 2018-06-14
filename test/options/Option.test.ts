@@ -19,6 +19,18 @@ import '../../src/implicits';
     assert.deepStrictEqual(a.getOrElse(null), 2);
   }
 
+  @test orElseReturnsSome5() {
+    const a = Option.Some(5);
+    const b = Option.Some(6);
+    assert.deepStrictEqual(a.orElse(b), a);
+  }
+
+  @test orElseReturnsSome6() {
+    const a = Option.None();
+    const b = Option.Some(6);
+    assert.deepStrictEqual(a.orElse(b), b);
+  }
+
   @test patternMatсhingWhatIsIt() {
     const a = Option.Some<number>(5);
     assert.deepStrictEqual(a.match([{
