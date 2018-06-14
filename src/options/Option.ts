@@ -1,4 +1,4 @@
-import {None, Some, match, Matcher} from "../../src";
+import {match, Matcher} from "../../src";
 
 export interface Optionable<T> {
   isEmpty: boolean;
@@ -6,27 +6,27 @@ export interface Optionable<T> {
 }
 
 export interface Option<T> {
-  value: Some<T>|None;
+  value?: T;
 }
 
 export class Option<T> implements Option<T> {
   static Some<T>(value: T) {
-    return new Option(Some<T>(value));
+    return new Option(value);
   }
   static None() {
-    return new Option(None());
+    return new Option();
   }
 
-  value: Some<T>|None;
+  value?: T;
   isEmpty: boolean;
 
-  constructor(value: Some<T>|None) {
+  constructor(value?: T) {
     this.value = value;
-    this.isEmpty = value.isEmpty;
+    this.isEmpty = value !== void 0;
   }
 
   getOrElse<V>(stopGap: V): T|V {
-    return this.value.getOrElse(stopGap);
+    return this.value || stopGap;
   }
 
   // TODO: rework

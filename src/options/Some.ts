@@ -1,12 +1,19 @@
 import {Optionable, Option} from "./Option";
 
-export interface Some<T> extends Optionable<T> {}
+export interface Some<T> extends Optionable<T> {
+  get: () => T;
+}
+
+class SomeClass<T> extends Option<T> implements Some<T> {
+  constructor(value: T) {
+    super(value);
+  }
+  get() {
+    return this.value;
+  }
+}
+
 
 export function Some<T>(value: T): Some<T> {
-  this.prototype = Option.prototype;
-  this.isEmpty = false;
-  this.getOrElse = function<V>(stopGap: V): T {
-    return value;
-  };
-  return this;
+  return new SomeClass(value);
 }
