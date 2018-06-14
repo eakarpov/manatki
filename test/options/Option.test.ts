@@ -31,6 +31,53 @@ import '../../src/implicits';
     assert.deepStrictEqual(a.orElse(b), b);
   }
 
+  @test mapTest() {
+    const a = Option.Some<number>(6);
+    const inc = (a: number) => a + 1;
+    assert.deepStrictEqual(a.map(inc).getOrElse(null), 7);
+  }
+
+  @test flatMapTest() {
+    const a = Option.Some<number>(6);
+    const inc = (a: number) => Option.Some(a + 1);
+    assert.deepStrictEqual(a.flatMap(inc).getOrElse(null), 7);
+  }
+
+  @test coflatMapTest() {
+    const a = Option.Some<number>(6);
+    const inc = (a: Option<number>) => a.getOrElse(0) + 1;
+    assert.deepStrictEqual(a.coflatMap(inc).getOrElse(null), 7);
+  }
+
+  @test foreachTest() {
+    const a = Option.Some<number>(6);
+    let b = 0;
+    a.forEach((a: number) => { b =+ a});
+    assert.deepStrictEqual(b, 6);
+  }
+
+  @test filterTest() {
+    const a = Option.Some<number>(6);
+    assert.deepStrictEqual(a.filter((a: number) => a === 2).getOrElse(0), 0);
+  }
+
+  @test falseFilterTest() {
+    const a = Option.Some<number>(6);
+    assert.deepStrictEqual(a.filter((a: number) => a === 6).getOrElse(0), 6);
+  }
+
+  @test flattenTest() {
+    const a = Option.Some<number>(6);
+    const b = Option.Some<Option<number>>(a);
+    assert.deepStrictEqual(b.flatten().getOrElse(0), 6);
+  }
+
+  @test combineTest() {
+    const a = Option.Some<number>(6);
+    const b = Option.Some<number>(1);
+    assert.deepStrictEqual(a.combine(b).getOrElse(0), 6);
+  }
+
   @test patternMatсhingWhatIsIt() {
     const a = Option.Some<number>(5);
     assert.deepStrictEqual(a.match([{
