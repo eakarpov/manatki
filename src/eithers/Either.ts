@@ -1,7 +1,13 @@
+import {LProjection} from "./LProjection";
+import {RProjection} from "./RProjection";
+
 export interface Validatable<K, T> {
   isLeft: boolean;
   isRight: boolean;
   swap(): void;
+  getOrElse<P>(stopGap: P): T|P;
+  left(): LProjection<K, T>;
+  right(): RProjection<K, T>;
 }
 
 export class Either<K, T> implements Validatable<K, T> {
@@ -11,21 +17,36 @@ export class Either<K, T> implements Validatable<K, T> {
   static Right<T>(val: T) {
     return new Either<any, T>(void 0, val);
   }
-  isLeft: boolean;
-  isRight: boolean;
-  left: K;
-  right: T;
+
+  public isLeft: boolean;
+  public isRight: boolean;
+  readonly _left: K;
+  readonly _right: T;
+
   constructor(left: K, right: T) {
-    this.left = left;
-    this.right = right;
-    if (this.left !== void 0) this.isLeft = true;
-    if (this.right !== void 0) this.isRight = true;
+    this._left = left;
+    this._right = right;
+    if (this._left !== void 0) this.isLeft = true;
+    if (this._right !== void 0) this.isRight = true;
   }
-  getOrElse<P>(stopGap: P): T|P {
-    return this.isRight ? this.right : stopGap;
+
+  public left(): LProjection<K, T> {
+    return new LProjection(this);
   }
-  swap(): Either<T, K> {
-    return new Either(this.right, this.left);
+  public right(): RProjection<K, T> {
+    return new RProjection(this);
+  }
+  public getOrElse<P>(stopGap: P): T|P {
+    return this.isRight ? this._right : stopGap;
+  }
+  public swap(): Either<T, K> {
+    return new Either(this._right, this._left);
+  }
+  joinLeft() {
+
+  }
+  joinRight() {
+
   }
   fold() {
 
