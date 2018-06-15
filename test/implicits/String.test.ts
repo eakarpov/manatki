@@ -3,10 +3,6 @@ import * as assert from "assert";
 import "../../src/implicits";
 
 @suite class StringTest {
-  @test getOrElsePrototypedNumberReturns5() {
-    const a = (2).some();
-    assert.deepStrictEqual(a.getOrElse(null), 2);
-  }
 
   @test checkIsEmpty() {
     assert.deepStrictEqual("123".isEmpty(), false);

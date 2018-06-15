@@ -58,7 +58,12 @@ function initNumberOptions() {
   };
   Number.prototype.empty = 0;
   Number.prototype.isEmpty = function () {
-    return this !== 0;
+    return this === 0;
+  };
+  Number.prototype.combineAll = function (...args: number[]) {
+    const f = (a: number, b: number) => this.combine.apply(a, [b]);
+    const a = this;
+    return lFold<number>(f)([a, ...args])(this.empty);
   }
 }
 
