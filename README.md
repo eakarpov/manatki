@@ -37,6 +37,29 @@ console.log(upper.getOrElse(""))
 3. Try[T]
 4. implicit constructors of Option and Either
 
+String and Number classes are Optionative and Validative, so they can be converted to Option<string>, Either<void, string> etc (see further).
+
+You can make your class Optionative by inheriting from Optionative<T>:
+
+```typescript
+class MyClass extends Optionative<MyClass> {
+  // ...
+}
+const a = new MyClass();
+a.some(); // returns Option<MyClass>
+```
+
+You can make your class Validative by inheriting from Validative<T>:
+
+```typescript
+class MyClass extends Validative<MyClass> {
+  // ...
+}
+const a = new MyClass();
+a.asLeft(); // returns Either<MyClass, void>
+a.asRight(); // returns Either<void, MyClass>
+```
+
 ## License
 
 MIT
