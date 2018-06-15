@@ -58,6 +58,14 @@ console.log(status2); // division by zero
 
 String and Number classes are Optionative and Validative, so they can be converted to Option<string>, Either<void, string> etc (see further).
 
+To add this possibility you should import implicits from manatki:
+
+```typescript
+import 'manatki/implicits'; // All implicits
+import 'manatki/implicits/String'; // implicits for strings
+import 'manatki/implicits/Number'; // implicits for number
+```
+
 You can make your class Optionative by inheriting from Optionative<T>:
 
 ```typescript
