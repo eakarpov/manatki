@@ -8,9 +8,11 @@ export interface Validatable<K, T> {
   getOrElse<P>(stopGap: P): T|P;
   left(): LProjection<K, T>;
   right(): RProjection<K, T>;
-  joinLeft(): void;
-  joinRight(): void;
-  fold(): void;
+  joinLeft<S = K, P = T>(): Either<S, P>;
+  joinRight<S = K, P = T>(): Either<S, P>;
+  fold<S>(f: (val: T) => S, g: (val: K) => S): S;
+  exists(pred: (val: T) => boolean): boolean;
+  forall(pred: (val: T) => boolean): boolean;
 }
 
 export class Either<K, T> implements Validatable<K, T> {
@@ -45,13 +47,24 @@ export class Either<K, T> implements Validatable<K, T> {
   public swap(): Either<T, K> {
     return new Either(this._right, this._left);
   }
-  joinLeft() {
-    throw new Error("not implemented");
+  joinLeft<S = K, P = T>(): Either<S, P> {
+    return (this.isLeft && this._left instanceof Either)
+      ? this._left as Either<S, P>
+      : this as any as Either<S, P>;
   }
-  joinRight() {
-    throw new Error("not implemented");
+  joinRight<S = K, P = T>(): Either<S, P> {
+    return (this.isRight && this._right instanceof Either)
+      ? this._right as Either<S, P>
+      : this as any as Either<S, P>;
   }
-  fold() {
-    throw new Error("not implemented");
+  fold<S>(f: (val: T) => S, g: (val: K) => S): S {
+    return this.isRight ? f(this._right) : g(this._left);
+  }
+  exists(pred: (val: T) => boolean): boolean {
+    return this.isRight && pred(this._right);
+  }
+
+  forall(pred: (val: T) => boolean): boolean {
+    return this.isLeft || pred(this._right);
   }
 }

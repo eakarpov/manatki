@@ -25,6 +25,9 @@ export interface Optionable<T> {
   forEach(func: (val: T) => void): void;
   filter(pred: (val: T) => boolean): Option<T>;
   flatten(): Option<T>;
+  fold<S>(f: (val: T) => S, g: () => S): S;
+  exists(pred: (val: T) => boolean): boolean;
+  forall(pred: (val: T) => boolean): boolean;
 }
 
 /**
@@ -145,6 +148,18 @@ export class Option<T> implements Optionable<T> {
    */
   combine<P>(that: Option<P>): Option<T|P> {
     return this.orElse(that);
+  }
+
+  fold<S>(f: (val: T) => S, g: () => S): S {
+    return this.isDefined ? f(this.value) : g();
+  }
+
+  exists(pred: (val: T) => boolean): boolean {
+    return this.isDefined && pred(this.value);
+  }
+
+  forall(pred: (val: T) => boolean): boolean {
+    return this.isEmpty || pred(this.value);
   }
 
   // TODO: rework
