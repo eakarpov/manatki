@@ -12,3 +12,4 @@ export interface Validated<T> {
 }
 
 export type Extension<T> = Optionized<T> & Validated<T> & Monoid<T>;
+export type ArrayExtension<T> = Validated<T> & Monoid<T>;
