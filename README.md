@@ -1,4 +1,4 @@
-# lc
+# manatki
 
 [![Build Status](https://travis-ci.org/eakarpov/manatki.svg?branch=master)](https://travis-ci.org/eakarpov/manatki)
 
