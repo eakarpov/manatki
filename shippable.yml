@@ -6,5 +6,5 @@ node_js:
 
 build:
   ci:
-    - npm i
-    - npm t
+    - npm install
+    - npm test
