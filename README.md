@@ -34,7 +34,26 @@ console.log(upper.getOrElse(""))
 ```
 
 2. Either[K, T]
+
+```typescript
+
+```
+
 3. Try[T]
+
+```typescript
+const a = (n: number) => (d: number) => {
+  if (d === 0) throw new Error("division by zero");
+  return n / d;
+};
+
+const status1 = Try<number>(() => a(5)(1)).fold<string>((n: number) => "Success", (e: Error) => e.message);
+console.log(status1); // Success
+
+const status2 = Try<number>(() => a(5)(0)).fold<string>((n: number) => "Success", (e: Error) => e.message);
+console.log(status2); // division by zero
+```
+
 4. implicit constructors of Option and Either
 
 String and Number classes are Optionative and Validative, so they can be converted to Option<string>, Either<void, string> etc (see further).
@@ -59,6 +78,11 @@ const a = new MyClass();
 a.asLeft(); // returns Either<MyClass, void>
 a.asRight(); // returns Either<void, MyClass>
 ```
+
+5. Algebra
+
+Monoid, Semigroup interfaces. Implicitly, String and Number are Monoidal in manatki.
+
 
 ## License
 
