@@ -4,6 +4,8 @@ import {Option} from "../options/Option";
 import {None} from "../options/None";
 import {Some} from "../options/Some";
 import {Failure} from "../try";
+import {Success} from "./Success";
+import {I} from "../combinators/index";
 
 export class TryClass<T> implements Try<T> {
   isFailure: boolean;
@@ -23,7 +25,7 @@ export class TryClass<T> implements Try<T> {
   }
 
   toOption(): Option<T> {
-    return this.isSuccess ? Some(this.value as T) : None;
+    return this.isSuccess ? Some<T>(this.value as T) : None;
   }
 
   getOrElse<U>(stopGap: U): U|T {
@@ -69,5 +71,34 @@ export class TryClass<T> implements Try<T> {
 
   fold<S>(f: (val: T) => S, g: (val: Error) => S): S {
     return this.isSuccess ? f(this.value as T) : g(this.value as Error);
+  }
+
+  failed(): Try<Error> {
+    return this.isFailure
+      ? new Success<Error>(this.value as Error)
+      : new Failure(new Error("Unsupported operation"));
+  }
+
+  flatten<K>(): Try<T|K> {
+    return this.isSuccess
+      ? this.value instanceof Try
+        ? this.flatMap(I) : this
+      : this;
+  }
+
+  product<P>(next: Try<P>): Try<[T, P]> {
+    return this.isFailure
+      ? this as any as Try<[T, P]>
+      : next.isFailure
+        ? next as any as Try<[T, P]>
+        : new Success<[T, P]>([this.value as T, next.get()]);
+  }
+
+  exists(pred: (val: T) => boolean): boolean {
+    return this.isSuccess && pred(this.value as T);
+  }
+
+  forall(pred: (val: T) => boolean): boolean {
+    return this.isFailure || pred(this.value as T);
   }
 }

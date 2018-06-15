@@ -4,7 +4,7 @@ import {Either} from "../eithers";
 import {Option} from "../options/Option";
 
 export interface Try<T> {
-  toEither(): Either<string|Error, T>;
+  toEither(): Either<Error, T>;
   toOption(): Option<T>;
 
   getOrElse<U>(stopGap: U): T|U;
@@ -19,10 +19,16 @@ export interface Try<T> {
   forEach(func: (val: T) => void): void;
   filter(pred: (val: T) => boolean): Try<T>;
   fold<S>(f: (val: T) => S, g: (val: Error) => S): S;
+  flatten<K>(): Try<T|K>;
 
   transform<S>(f: (val: T) => Try<S>, g: (err: Error) => Try<S>): Try<S>
   recover<S>(f: (err: Error) => S): Try<S|T>;
   recoverWith<S>(f: (err: Error) => Try<S>): Try<S|T>;
+  failed(): Try<Error>;
+  product<P>(next: Try<P>): Try<[T, P]>;
+
+  exists(pred: (val: T) => boolean): boolean;
+  forall(pred: (val: T) => boolean): boolean;
 }
 
 export function Try<T>(f: () => T): Try<T> {
