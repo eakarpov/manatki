@@ -14,11 +14,6 @@ import '../../src/implicits';
     assert.deepStrictEqual(b.getOrElse(5), 5);
   }
 
-  @test getOrElsePrototypedNumberReturns5() {
-    const a = (2).some();
-    assert.deepStrictEqual(a.getOrElse(null), 2);
-  }
-
   @test orElseReturnsSome5() {
     const a = Option.Some(5);
     const b = Option.Some(6);
