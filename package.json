@@ -1,5 +1,5 @@
 {
-  "name": "lc",
+  "name": "manatki",
   "version": "0.0.0",
   "description": "Lambda Calculus",
   "main": "./build/index.js",
