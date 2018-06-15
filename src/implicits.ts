@@ -20,25 +20,25 @@ declare global {
 function initStringOptions() {
   String.prototype.some = function() {
     return Option.Some<string>(this);
-  }
+  };
   String.prototype.asLeft = function() {
     return Either.Left<string>(this);
-  }
+  };
   String.prototype.asRight = function() {
     return Either.Right<string>(this);
-  }
+  };
 }
 
 function initNumberOptions() {
   Number.prototype.some = function() {
     return Option.Some<number>(this);
-  }
+  };
   Number.prototype.asLeft = function() {
     return Either.Left<number>(this);
-  }
+  };
   Number.prototype.asRight = function() {
     return Either.Right<number>(this);
-  }
+  };
 }
 
 initNumberOptions();

@@ -1,5 +1,6 @@
 import {LProjection} from "./LProjection";
 import {RProjection} from "./RProjection";
+import {Success, Failure, Try} from "../try";
 
 export interface Validatable<K, T> {
   isLeft: boolean;
@@ -13,6 +14,7 @@ export interface Validatable<K, T> {
   fold<S>(f: (val: T) => S, g: (val: K) => S): S;
   exists(pred: (val: T) => boolean): boolean;
   forall(pred: (val: T) => boolean): boolean;
+  toTry(): Try<T>;
 }
 
 export class Either<K, T> implements Validatable<K, T> {
@@ -66,5 +68,8 @@ export class Either<K, T> implements Validatable<K, T> {
 
   forall(pred: (val: T) => boolean): boolean {
     return this.isLeft || pred(this._right);
+  }
+  toTry(): Try<T> {
+    return this.isRight ? new Success(this._right) : new Failure<T>(new Error("Failed"));
   }
 }
