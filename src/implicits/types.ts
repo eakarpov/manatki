@@ -3,7 +3,7 @@ import {Either} from "../eithers";
 import {Monoid} from "../algrebra";
 
 export interface Optionized<T> {
-  some(): Option<T>;
+  toSome(): Option<T>;
 }
 
 export interface Validated<T> {

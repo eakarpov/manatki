@@ -7,7 +7,7 @@ declare global {
   interface String extends Extension<string> {}
 }
 
-String.prototype.some = function() {
+String.prototype.toSome = function() {
   return Option.Some<string>(this);
 };
 String.prototype.asLeft = function() {

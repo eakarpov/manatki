@@ -7,7 +7,7 @@ declare global {
   interface Number extends Extension<number> {}
 }
 
-Number.prototype.some = function() {
+Number.prototype.toSome = function() {
   return Option.Some<number>(this);
 };
 Number.prototype.asLeft = function() {
@@ -27,4 +27,4 @@ Number.prototype.combineAll = function (...args: number[]) {
   const f = (a: number, b: number) => this.combine.apply(a, [b]);
   const a = this;
   return lFold<number>(f)([a, ...args])(this.empty);
-}
+};

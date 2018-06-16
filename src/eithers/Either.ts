@@ -1,6 +1,7 @@
 import {LProjection} from "./LProjection";
 import {RProjection} from "./RProjection";
 import {Success, Failure, Try} from "../try";
+import {Option} from "../options";
 
 export interface Validatable<K, T> {
   isLeft: boolean;
@@ -15,6 +16,8 @@ export interface Validatable<K, T> {
   exists(pred: (val: T) => boolean): boolean;
   forall(pred: (val: T) => boolean): boolean;
   toTry(): Try<T>;
+  toOption(): Option<T>;
+  biMap<C, D>(fa: (val: K) => C, fb: (val: T) => D): Either<C, D>;
 }
 
 export class Either<K, T> implements Validatable<K, T> {
@@ -71,5 +74,11 @@ export class Either<K, T> implements Validatable<K, T> {
   }
   toTry(): Try<T> {
     return this.isRight ? new Success(this._right) : new Failure<T>(new Error("Failed"));
+  }
+  toOption(): Option<T> {
+    return this.isRight ? Option.Some(this._right) : Option.None<T>();
+  }
+  biMap<C, D>(fa: (val: K) => C, fb: (val: T) => D): Either<C, D> {
+    return this.isLeft ? Either.Left<C>(fa(this._left)) : Either.Right<D>(fb(this._right));
   }
 }

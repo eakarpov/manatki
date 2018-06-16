@@ -1,12 +1,15 @@
 import {lFold} from "../lambda/fold";
 import {Either} from "../eithers";
-import {ArrayExtension} from "./types";
+import {Extension} from "./types";
+import {Some} from "../options";
 
-// Non-Optionate
 declare global {
-  interface Array<T> extends ArrayExtension<Array<T>> {}
+  interface Array<T> extends Extension<Array<T>> {}
 }
 
+Array.prototype.toSome = function() {
+  return Some<Array<any>>(this);
+};
 Array.prototype.asLeft = function() {
   return Either.Left<Array<any>>(this);
 };

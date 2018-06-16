@@ -50,8 +50,8 @@ export class Option<T> implements Optionable<T> {
    * @returns {Option<any>}
    * @constructor
    */
-  static None() {
-    return new Option();
+  static None<T = any>() {
+    return new Option<T>();
   }
 
   protected value?: T;

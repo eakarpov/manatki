@@ -1,6 +1,6 @@
 import {suite, test} from "mocha-typescript";
 import * as assert from "assert";
-import "../../src/implicits";
+import "../../src/implicits/String";
 
 @suite class StringTest {
 

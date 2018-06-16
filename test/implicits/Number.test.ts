@@ -1,10 +1,10 @@
 import {suite, test} from "mocha-typescript";
 import * as assert from "assert";
-import "../../src/implicits";
+import "../../src/implicits/Number";
 
 @suite class StringTest {
   @test getOrElsePrototypedNumberReturns5() {
-    const a = (2).some();
+    const a = (2).toSome();
     assert.deepStrictEqual(a.getOrElse(null), 2);
   }
 
