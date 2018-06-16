@@ -1,10 +1,10 @@
 import {Option} from "../options/Option";
 import {lFold} from "../lambda/fold";
 import {Either} from "../eithers";
-import {Extension} from "./types";
+import {GroupExtension} from "./types";
 
 declare global {
-  interface Number extends Extension<number> {}
+  interface Number extends GroupExtension<number> {}
 }
 
 Number.prototype.toSome = function() {
@@ -27,4 +27,7 @@ Number.prototype.combineAll = function (...args: number[]) {
   const f = (a: number, b: number) => this.combine.apply(a, [b]);
   const a = this;
   return lFold<number>(f)([a, ...args])(this.empty);
+};
+Number.prototype.inverse = function () {
+  return 0 - this;
 };

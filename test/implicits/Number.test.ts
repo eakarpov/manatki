@@ -19,4 +19,8 @@ import "../../src/implicits/Number";
   @test combineAllString() {
     assert.deepStrictEqual((1).combineAll(2,3,4,5,6), 21);
   }
+
+  @test inverse() {
+    assert.deepStrictEqual((4).combine((4).inverse()), Number.prototype.empty);
+  }
 }
