@@ -19,15 +19,15 @@ Number.prototype.asRight = function() {
 Number.prototype.combine = function (next: Number) {
   return this + next;
 };
-Number.prototype.empty = 0;
+Number.prototype.empty = () => 0;
 Number.prototype.isEmpty = function () {
-  return this === 0;
+  return this === this.empty();
 };
 Number.prototype.combineAll = function (...args: number[]) {
   const f = (a: number, b: number) => this.combine.apply(a, [b]);
   const a = this;
-  return lFold<number>(f)([a, ...args])(this.empty);
+  return lFold<number>(f)([a, ...args])(this.empty());
 };
 Number.prototype.inverse = function () {
-  return 0 - this;
+  return this.empty() - this;
 };

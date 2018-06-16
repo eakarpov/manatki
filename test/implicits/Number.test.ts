@@ -2,7 +2,7 @@ import {suite, test} from "mocha-typescript";
 import * as assert from "assert";
 import "../../src/implicits/Number";
 
-@suite class StringTest {
+@suite class NumberTest {
   @test getOrElsePrototypedNumberReturns5() {
     const a = (2).toSome();
     assert.deepStrictEqual(a.getOrElse(null), 2);
@@ -21,6 +21,6 @@ import "../../src/implicits/Number";
   }
 
   @test inverse() {
-    assert.deepStrictEqual((4).combine((4).inverse()), Number.prototype.empty);
+    assert.deepStrictEqual((4).combine((4).inverse()), Number.prototype.empty());
   }
 }

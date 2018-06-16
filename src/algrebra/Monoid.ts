@@ -4,10 +4,10 @@ import {Either} from "../eithers";
 import {EitherM} from "..";
 
 export abstract class Monoid<T> extends Semigroup<T> {
-  empty: T;
+  abstract empty(): T;
   isEmpty: () => boolean;
   combineAll(...args: T[]): T {
-    return lFold(this.combine)(args)(this.empty);
+    return lFold(this.combine)(args)(this.empty());
   }
   static of<T>(Type: any): Monoid<T> { // TODO: is not working
     if (Type.__proto__ === Monoid) return Type;

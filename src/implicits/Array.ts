@@ -19,7 +19,7 @@ Array.prototype.asRight = function() {
 Array.prototype.combine = function<T>(next: T[]): T[] {
   return this.concat(next);
 };
-Array.prototype.empty = [];
+Array.prototype.empty = () => [];
 Array.prototype.isEmpty = function() {
   return this.length === 0;
 };
