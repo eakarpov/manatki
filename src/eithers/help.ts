@@ -1,0 +1,1 @@
+export {Monoid} from '../algrebra/Monoid';
