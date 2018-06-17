@@ -1,4 +1,5 @@
 import {match, None, I, Matcher} from "../../src";
+import {Monad} from "../algrebra/Monad";
 
 // export interface Traversable<T, K<T>> {
 //   map<P>(f: (val: T) => P): K<P|T>;
@@ -34,7 +35,7 @@ export interface Optionable<T> {
  * @class Option[T]
  * Optional value of T type
  */
-export class Option<T> implements Optionable<T> {
+export class Option<T> implements Optionable<T>, Monad<T> {
   /**
    * @static
    * @param {T} value
@@ -102,6 +103,15 @@ export class Option<T> implements Optionable<T> {
    */
   flatMap<P>(func: (val: T) => Option<P>): Option<T|P> {
     return this.isDefined ? func(this.value) : this;
+  }
+
+  // Practically the same as above
+  bind<P>(func: (val: T) => Option<P>): Option<P> {
+    return this.isDefined ? func(this.value) : None;
+  }
+
+  unit<T>(x: T): Option<T> {
+    return Option.Some(x);
   }
 
   /**

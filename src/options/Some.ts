@@ -1,7 +1,10 @@
 import {Optionable, Option} from "./Option";
+import {Monad} from "../algrebra/Monad";
 
-export interface Some<T> extends Optionable<T> {
+export interface Some<T> extends Optionable<T>, Monad<T> {
   get: () => T;
+  bind<U>(f: (val: T) => Option<U>): Option<U>;
+  unit<T>(x: T): Option<T>;
 }
 
 /**
