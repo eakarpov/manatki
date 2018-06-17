@@ -110,7 +110,7 @@ export class Option<T> implements Optionable<T>, Monad<T> {
     return this.isDefined ? func(this.value) : None;
   }
 
-  unit<T>(x: T): Option<T> {
+  static unit<T>(x: T): Option<T> {
     return Option.Some(x);
   }
 
