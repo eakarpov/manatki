@@ -1,6 +1,6 @@
 {
   "name": "manatki",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Function programming in Typescript/Javascript",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -15,7 +15,9 @@
   "keywords": [
     "typescript",
     "javascript",
-    "fp"
+    "fp",
+    "monads",
+    "functional programming"
   ],
   "author": "George Carpow",
   "license": "MIT",
@@ -24,11 +26,11 @@
   },
   "homepage": "https://github.com/eakarpov/manatki#readme",
   "devDependencies": {
-    "@types/mocha": "^5.2.2",
-    "@types/node": "^10.3.2",
-    "mocha": "^5.2.0",
-    "mocha-typescript": "^1.1.16",
-    "ts-node": "^6.1.1",
-    "typescript": "^2.9.1"
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20.17.10",
+    "mocha": "^11.0.1",
+    "mocha-typescript": "1.1.17",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
   }
 }
