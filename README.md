@@ -1,6 +1,6 @@
 # manatki
 
-[![Build Status](https://travis-ci.org/eakarpov/manatki.svg?branch=master)](https://travis-ci.org/eakarpov/manatki)
+[![Build status](https://img.shields.io/github/actions/workflow/status/eakarpov/manatki/ci.yml?branch=v1.x&label=CI&logo=github&style=flat-square)](https://github.com/eakarpov/manatki/actions/workflows/ci.yml)
 
 Dependency-free library for functional programming in Typescript/Javascript
 
