@@ -13,9 +13,11 @@ export class EitherM<K, T extends Monoid<T>> extends Either<K, T> implements Mon
     return this.isLeft ? this : that.isLeft ? that : new EitherM(void 0, this._right.combine(that.right().get()));
   }
   combineAll(...args: EitherM<K, T>[]) {
-    const f = (a: EitherM<K, T>, b: EitherM<K, T>) => this.combine.apply(a, [b]);
+    const f = (a: EitherM<K, T>) => (b: EitherM<K, T>) => {
+      return this.combine.apply(a, [b]) as EitherM<K, T>;
+    }
     const a = this;
-    return lFold<EitherM<K, T>>(f)([a, ...args])(this.empty());
+    return lFold<EitherM<K, T>, EitherM<K, T>> (f) (this.empty()) ([a, ...args]);
   }
   constructor(left: K, value: T) {
     super(left, value);

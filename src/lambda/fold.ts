@@ -1,18 +1,21 @@
-export function lFold<T>(f: (a: T, b: T) => T) {
-  return function inner(a: T[]) {
-    return function (i: T): T {
-      const newA = a.slice();
-      const temp: T = newA.shift();
-      return a.length === 0 ?  i : inner(newA)(f(i, temp));
+export const lFold = <T, K>(f: (a: K) => (b: T) => K) => {
+  const inner = (i: K) => {
+    return (arr: T[]): K => {
+      const newA: T[] = arr.slice();
+      const temp:T = newA.shift();
+      return arr.length === 0 ? i : inner (f (i) (temp)) (newA);
     }
   }
+  return inner;
 }
 
-export function rFold<T>(f: (a: T, b: T) => T) {
-  return function (a: T[]) {
-    return function (i: T): T {
-      const temp = a.pop();
-      return a.length === 0 ?  i : lFold(f)(a)(f(i, temp));
+export const rFold = <T, K>(f: (a: T) => (b: K) => K) => {
+  const inner = (i: K) => {
+    return (arr: T[]): K => {
+      const newA: T[] = arr.slice();
+      const temp:T = newA.pop();
+      return arr.length === 0 ? i : f (temp) (inner (i) (newA));
     }
-  }
+  };
+  return inner;
 }

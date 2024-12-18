@@ -50,9 +50,9 @@ export class List<T> extends Monad<T> implements Optionized<T[]>, Validated<T[]>
   }
 
   combineAll(...args: List<T>[]): List<T> {
-    const f = (a: List<T>, b: List<T>) => this.combine.apply(a, [b]);
+    const f = (a: List<T>) => (b: List<T>) => this.combine.apply(a, [b]);
     const a = this;
-    return lFold<List<T>>(f)([a, ...args])(this.empty());
+    return lFold<List<T>, List<T>> (f) (this.empty()) ([a, ...args]);
   }
 
   toSome(): Option<T[]> {

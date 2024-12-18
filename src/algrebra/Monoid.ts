@@ -7,7 +7,7 @@ export abstract class Monoid<T> extends Semigroup<T> {
   abstract empty(): T;
   isEmpty: () => boolean;
   combineAll(...args: T[]): T {
-    return lFold(this.combine)(args)(this.empty());
+    return lFold<T, T> ((a) => (b) => this.combine.apply(a, b) as T) (this.empty()) (args);
   }
   static of<T>(Type: any): Monoid<T> { // TODO: is not working
     if (Type.__proto__ === Monoid) return Type;

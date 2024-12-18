@@ -1,10 +1,11 @@
 {
   "name": "manatki",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Function programming in Typescript/Javascript",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "scripts": {
+    "watch": "tsc --watch",
     "build": "tsc",
     "test": "npm run build && mocha --require ts-node/register --ui mocha-typescript ./**/*.test.ts"
   },

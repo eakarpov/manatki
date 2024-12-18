@@ -4,7 +4,9 @@
 
 Dependency-free library for functional programming in Typescript/Javascript
 
-Status: in development (v0.0.0)
+In functional programming, a monad is a structure that combines program fragments (functions) and wraps their return values in a type with additional computation. In addition to defining a wrapping monadic type, monads define two operators: one to wrap a value in the monad type, and another to compose together functions that output values of the monad type.
+
+The library implements Scala approach of monad classes: `Option[T], Some[T], None`
 
 ## Get started
 
@@ -18,6 +20,18 @@ Then you are able to import it in your project:
 
 ```typescript
 import {Option, Some, None} from 'manatki';
+```
+
+Optionally turn on implicit constructors of Option and Either
+
+String and Number classes are Optionative and Validative, so they can be converted to Option<string>, Either<void, string> etc (see further).
+
+To add this possibility you should import implicits from manatki:
+
+```typescript
+import 'manatki/implicits'; // All implicits
+import 'manatki/implicits/String'; // implicits for strings
+import 'manatki/implicits/Number'; // implicits for number
 ```
 
 ## Features
@@ -54,18 +68,6 @@ const status2 = Try<number>(() => a(5)(0)).fold<string>((n: number) => "Success"
 console.log(status2); // division by zero
 ```
 
-4. implicit constructors of Option and Either
-
-String and Number classes are Optionative and Validative, so they can be converted to Option<string>, Either<void, string> etc (see further).
-
-To add this possibility you should import implicits from manatki:
-
-```typescript
-import 'manatki/implicits'; // All implicits
-import 'manatki/implicits/String'; // implicits for strings
-import 'manatki/implicits/Number'; // implicits for number
-```
-
 You can make your class Optionative by inheriting from Optionative<T>:
 
 ```typescript
@@ -91,6 +93,21 @@ a.asRight(); // returns Either<void, MyClass>
 
 Monoid, Semigroup interfaces. Implicitly, String and Number are Monoidal in manatki.
 
+## Functional programming
+
+1. lFold
+
+```typescript
+lFold ((f: string) => (g: string) => f + g) ("") (["2","3","4","5","6"]); // 23456
+
+lFold ((e: number) => (f: number) => e + f) (0) ([1,2,3]); // 6
+```
+
+2. rFold
+
+```typescript
+rFold ((f: string) => (g: string) => f + g)("") (["2","3","4","5","6"]); // "65432"
+```
 
 ## License
 
